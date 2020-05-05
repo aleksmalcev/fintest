@@ -18,6 +18,12 @@ abstract class BaseView
 
     abstract public function run();
 
+    public function existRequestPostData()
+    {
+        return false;
+    }
+
+
     /**
      * @return bool
      */

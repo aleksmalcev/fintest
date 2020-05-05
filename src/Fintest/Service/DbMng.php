@@ -50,4 +50,22 @@ class DbMng
         return \mysqli_error($link);
     }
 
+    static function beginTransaction()
+    {
+        $link = self::getDbLink();
+        mysqli_begin_transaction($link);
+    }
+
+    static function commitTransaction()
+    {
+        $link = self::getDbLink();
+        mysqli_commit($link);
+    }
+
+    static function rollbackTransaction()
+    {
+        $link = self::getDbLink();
+        mysqli_rollback($link);
+    }
+
 }

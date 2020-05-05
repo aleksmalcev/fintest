@@ -4,7 +4,7 @@ namespace Fintest\Common;
 
 class UserInput
 {
-    static function strFrom($str, $maxLength, $doSafe = true)
+    static private function strFrom($str, $maxLength, $doSafe = true)
     {
         $res = trim($str);
         if($maxLength > 0) {
@@ -41,7 +41,7 @@ class UserInput
         return $res;
     }
 
-    static function floatFrom($str)
+    static private function floatFrom($str)
     {
         $res = str_replace(',', '.', $str);
         return floatval($res);

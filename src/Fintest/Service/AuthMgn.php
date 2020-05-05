@@ -61,11 +61,9 @@ class AuthMgn
                 throw new \Exception($stdErr);
             }
 
-            $userPsw = '';
-            while ($row = \mysqli_fetch_array($res)) {
-                $userId = $row['id'];
-                $userPsw = $row['psw'];
-            }
+            $row = \mysqli_fetch_array($res);
+            $userId = $row['id'];
+            $userPsw = $row['psw'];
 
             if (password_verify($psw, $userPsw)) {
                 throw new \Exception($stdErr.'(2)');

@@ -13,7 +13,7 @@ class AuthView extends BaseView
     static private $fieldPsw = 'user-psw';
     static private $prmExit = 'exit';
 
-    private $fromPost;
+    private $fromPost = [];
     private $errInfo;
     private $errInfoExternal;
 
@@ -27,7 +27,7 @@ class AuthView extends BaseView
         if (! empty($this->fromPost)) {
             return;
         }
-        if (! $this->existAuthRequestData()) {
+        if (! $this->existRequestPostData()) {
             return;
         }
         $this->fromPost = [];
@@ -35,7 +35,7 @@ class AuthView extends BaseView
         $this->fromPost[self::$fieldPsw] = UI::strFromPost(self::$fieldPsw, 32);
     }
 
-    public function existAuthRequestData()
+    public function existRequestPostData()
     {
         return isset($_POST[self::$fieldLogin]) and isset($_POST[self::$fieldPsw]);
     }
@@ -62,15 +62,15 @@ class AuthView extends BaseView
 
     public function validate()
     {
-        $this->prepareFromPostData();
-        if ( empty($this->fromPost[self::$fieldLogin]) || empty($this->fromPost[self::$fieldPsw]) ) {
-            $this->errInfo =  'No authentication data';
-            return false;
-        }
-
         if (! $this->checkFormGuid()) {
             $this->fromPost = [];
             $this->errInfo =  'Error while authentication. Refresh website page and try again';
+            return false;
+        }
+
+        $this->prepareFromPostData();
+        if ( empty($this->fromPost[self::$fieldLogin]) || empty($this->fromPost[self::$fieldPsw]) ) {
+            $this->errInfo =  'No authentication data';
             return false;
         }
 
@@ -144,10 +144,10 @@ class AuthView extends BaseView
 Try use: test@test.test / test
 </p>
     <p>
-        Login <input type="text" name="user-login">
+        Login <input type="text" name="'.self::$fieldLogin.'">
     </p>
     <p>
-        Password <input type="text" name="user-psw">
+        Password <input type="text" name="'.self::$fieldPsw.'">
     </p>
     <p>
         <input type="submit" value="Enter">

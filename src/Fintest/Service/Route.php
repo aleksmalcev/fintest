@@ -90,11 +90,30 @@ class Route
         }
     }
 
+    static private function prepareNamesForUrl($name)
+    {
+        $res = [];
+        preg_match_all('/[A-Z][^A-Z]+/',$name,$res,PREG_PATTERN_ORDER);
+        $name = implode('-', $res[0]);
+        $name = strtolower($name);
+        return $name;
+    }
+
     static function getUrl($controllerName, $actionName)
     {
-        $controllerName = strtolower($controllerName);
-        $actionName = strtolower($actionName);
-        return '/'.$controllerName.'/'.$actionName;
+        $errPart = 'should used latin letters, words without space, each word start uppercase letter';
+        $controllerNameForUrl = self::prepareNamesForUrl($controllerName);
+        if (empty($controllerNameForUrl)) {
+            $err = 'Error controller name:'.$controllerName.' Controller name '.$errPart;
+            throw new \Exception($err);
+        }
+
+        $actionNameForUrl = self::prepareNamesForUrl($actionName);
+        if (empty($actionNameForUrl)) {
+            $err = 'Error action name:'.$controllerName.' Action name '.$errPart;
+            throw new \Exception($err);
+        }
+        return '/'.$controllerNameForUrl.'/'.$actionNameForUrl;
     }
 
     static function getDefaultUrl()

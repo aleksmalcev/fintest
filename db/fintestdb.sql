@@ -26,4 +26,5 @@ CREATE TABLE accounts (
         ON UPDATE RESTRICT ON DELETE RESTRICT 
 ) ENGINE=INNODB;
 
+INSERT INTO `accounts` (`user_id`, `value`) VALUES (1, 1000000);
 

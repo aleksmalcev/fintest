@@ -39,7 +39,7 @@ class AuthController extends BaseController
         }
 
         $authView = new AuthView();
-        if ($authView->existAuthRequestData() && $authView->validate()) {
+        if ($authView->existRequestPostData() && $authView->validate()) {
             $login = $authView->getLoginFromPost();
             $psw = $authView->getPswFromPost();
             try {
@@ -55,7 +55,7 @@ class AuthController extends BaseController
     function actionEnter()
     {
         $authView = new AuthView();
-        if ($authView->existAuthRequestData() && $authView->validate()) {
+        if ($authView->existRequestPostData() && $authView->validate()) {
             $login = $authView->getLoginFromPost();
             $psw = $authView->getPswFromPost();
             try {
