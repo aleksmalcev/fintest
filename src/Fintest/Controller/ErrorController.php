@@ -16,19 +16,6 @@ class ErrorController extends BaseController
         $error404View = new Error404View();
         echo $error404View->run();
 
-        echo '<table>';
-        foreach ($_SERVER as $k => $val)
-        {
-            echo '<tr>';
-            echo '<td>'.$k;
-            echo '</td>';
-            echo '<td>'.$val;
-            echo '</td>';
-            echo '</tr>';
-        }
-        echo '</table>';
-
-
         exit;
     }
 }

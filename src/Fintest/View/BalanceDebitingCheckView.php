@@ -121,7 +121,7 @@ Your account balance :  '.$balanceVal.'
 </p>
 
 <p>
-Your ask for debiting:  '.$debitingVal.'       
+You ask for debiting:  '.$debitingVal.'       
 </p>
 
 <h2>Account balance after debiting: '.$newBalanceVal.'</h2>

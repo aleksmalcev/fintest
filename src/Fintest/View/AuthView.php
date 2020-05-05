@@ -147,7 +147,7 @@ Try use: test@test.test / test
         Login <input type="text" name="'.self::$fieldLogin.'">
     </p>
     <p>
-        Password <input type="text" name="'.self::$fieldPsw.'">
+        Password <input type="password" name="'.self::$fieldPsw.'">
     </p>
     <p>
         <input type="submit" value="Enter">
