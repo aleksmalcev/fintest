@@ -18,7 +18,7 @@ class BaseTemplate
         $homePart = '<a href="/">Home</a>';
         $logoffPart = $this->getLogoffPart();
         return "<!DOCTYPE html>
-<html lang=\"ru\">
+<html lang=\"en\">
 <head>
 <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes, initial-scale=1\">
 <meta charset=\"utf-8\">
