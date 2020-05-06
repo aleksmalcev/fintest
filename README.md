@@ -5,15 +5,18 @@ Only back-end part, front-end is simple, without any js and css
 Init database sql in \db\fintestdb.sql 
 
 Database connection options: \src\Fintest\App.php - 
-static function getDbConnectionProp()
+`static function getDbConnectionProp()
     $res = [
         'host' => 'localhost',
         'user' => 'test',
         'psw' => 'test',
-        'db' => 'fintest',
+        'db' => 'fintest',`
         
- Need run composer install before start using (don't use external library, only composer autoload)
+Need run "composer install" before start using (don't use external library, only composer autoload)
 
+Enter point of application: \index.php
+
+You can find Nginx config in file: /nginx/fintest.conf
 
 Example of Fintest app: http://fintest.hotelroom.ru/
 login, psw for test user in fintest app - 
