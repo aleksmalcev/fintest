@@ -1,5 +1,5 @@
 # fintest
-Example of MVC application by PHP and MySql without using frameworks and ORM libraries.
+Example of MVC (Model View Controller) application by PHP and MySql without using frameworks and ORM libraries.
 Only back-end part, front-end is simple, without any js and css 
 
 Init database sql in \db\fintestdb.sql 
