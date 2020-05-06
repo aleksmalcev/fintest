@@ -20,6 +20,7 @@ class BaseTemplate
         return "<!DOCTYPE html>
 <html lang=\"ru\">
 <head>
+<meta name=\"viewport\" content=\"width=device-width, user-scalable=yes, initial-scale=1\">
 <meta charset=\"utf-8\">
 <title>$title</title>
 </head>
