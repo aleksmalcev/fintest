@@ -41,7 +41,7 @@ class AuthMgn
     static function findUserId($login, $psw)
     {
         /** @var \Fintest\Model\UserModel $userModel */
-        $userModel = ModelMng::getModel('UserModel');
+        $userModel = ModelMng::getModel('User');
         $userInfo = $userModel->getUserByLogin($login);
         $stdErr = 'Login or password incorrect!';
         if (empty($userInfo)) {

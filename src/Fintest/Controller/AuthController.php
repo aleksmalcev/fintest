@@ -38,7 +38,7 @@ class AuthController extends BaseController
         if (AuthMgn::isCurUser()) {
             // - check user
             /** @var \Fintest\Model\UserModel $userModel */
-            $userModel = ModelMng::getModel('UserModel');
+            $userModel = ModelMng::getModel('User');
             $curUserId = AuthMgn::getCurUserId();
             if (! $userModel->isSetUserId($curUserId, true)) {
                 AuthMgn::logoff();
