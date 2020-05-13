@@ -10,6 +10,7 @@ namespace Fintest\Controller;
 
 use Fintest\Service\AuthMgn;
 use Fintest\View\AuthView;
+use Fintest\Service\ModelMng;
 
 
 class AuthController extends BaseController
@@ -35,6 +36,14 @@ class AuthController extends BaseController
     function doEnter()
     {
         if (AuthMgn::isCurUser()) {
+            // - check user
+            /** @var \Fintest\Model\UserModel $userModel */
+            $userModel = ModelMng::getModel('UserModel');
+            $curUserId = AuthMgn::getCurUserId();
+            if (! $userModel->isSetUserId($curUserId, true)) {
+                AuthMgn::logoff();
+                //todo: log this
+            }
             return;
         }
 

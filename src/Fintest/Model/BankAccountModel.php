@@ -4,24 +4,14 @@ namespace Fintest\Model;
 
 
 use Fintest\Service\DbMng;
-use Fintest\Service\ModelMng;
 
 
 class BankAccountModel
 {
-    private function checkUserId($userId)
-    {
-        /** @var \Fintest\Model\UserModel $userModel */
-        $userModel = ModelMng::getModel('User');
-        if (! $userModel->isSetUserId($userId, true)) {
-            $userId = $userId ?? 'null';
-            throw new \Exception('Unknown user - '.$userId);
-        }
-    }
+    const zeroVal = 0.001;
 
     public function getAccount($userId, $forUpdate = false)
     {
-        $this->checkUserId($userId);
         $params =['#userId' => $userId];
         $query = 'SELECT * FROM accounts WHERE user_id = #userId';
         if ($forUpdate) {
@@ -62,7 +52,6 @@ class BankAccountModel
 
     private function setBalance($userId, $val)
     {
-        $this->checkUserId($userId);
         $params =['#userId' => $userId, '#value' => $val];
         $query = 'UPDATE accounts SET `value` = #value WHERE user_id = #userId';
         $res = DbMng::query($query, $params);
@@ -85,7 +74,7 @@ class BankAccountModel
             // - check if money enough
             $balanceVal = $this->getBalance($userId, true);
             $newBalanceVal = $balanceVal - $val;
-            if ($newBalanceVal < 0) {
+            if ($newBalanceVal < self::zeroVal) {
                 throw new \Exception('Request cancelled: Not enough money in the account');
             }
             // - debiting money
@@ -100,6 +89,5 @@ class BankAccountModel
     public function addMoney($userId, $val)
     {
         throw new \Exception('Method not supported');
-
     }
 }

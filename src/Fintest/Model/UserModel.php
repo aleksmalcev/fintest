@@ -8,6 +8,7 @@
 
 namespace Fintest\Model;
 
+use Fintest\Service\DbMng;
 
 class UserModel
 {
@@ -29,6 +30,40 @@ class UserModel
         return true;
     }
 
+    /**
+     * If user by $login exists then return array with user info, else return null
+     *
+     * @param $login
+     * @return array|null
+     * @throws \Exception
+     */
+    public function getUserByLogin($login)
+    {
+        $params =['#login' => $login];
+        $query = "SELECT * FROM users WHERE login LIKE '#login'";
+        $res = DbMng::query($query, $params);
+        if ($res === false) {
+            $err = DbMng::error();
+            throw new \Exception($err);
+        }
 
+        try {
+            $numRows = \mysqli_num_rows($res);
+            if ($numRows > 1) {
+                $err = 'More then 1 results by login';
+                throw new \Exception($err);
+            }
+
+            if ($numRows <= 0) {
+                // user not exists by $login
+                return null;
+            }
+
+            $userInfo = \mysqli_fetch_array($res);
+            return $userInfo;
+        } finally  {
+            \mysqli_free_result($res);
+        }
+    }
 
 }

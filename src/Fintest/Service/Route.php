@@ -17,6 +17,7 @@ class Route
      */
     static function processUri($uri)
     {
+        $uri = urldecode($uri);
         $ipos = strpos($uri, '?');
         if ($ipos !== false) {
             $uri = substr($uri, 0, $ipos);
@@ -40,8 +41,8 @@ class Route
         // remove word separator "-" and make camel notation word
         foreach ($res as $key => $val) {
             $words = explode('-', $val);
-            foreach ($words as $key1 => $val) {
-                $words[$key1] = ucfirst($val);
+            foreach ($words as $key1 => $val2) {
+                $words[$key1] = ucfirst($val2);
             }
             $res[$key] = implode('',$words);
         }

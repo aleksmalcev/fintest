@@ -31,9 +31,9 @@ class BalanceController extends BaseController
         if ($view->existRequestPostData() && $view->validate()) {
             $debitingVal = $view->getDebitingValFromPost();
             $userId = AuthMgn::getCurUserId();
-            /** @var \Fintest\Model\BankAccountModel $bankAccountModel */
-            $bankAccountModel = ModelMng::getModel('BankAccount');
             try {
+                /** @var \Fintest\Model\BankAccountModel $bankAccountModel */
+                $bankAccountModel = ModelMng::getModel('BankAccount');
                 $bankAccountModel->debitingMoney($userId, $debitingVal);
             } catch (\Throwable $e) {
                 $err = $e->getMessage();

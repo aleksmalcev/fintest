@@ -40,41 +40,19 @@ class AuthMgn
 
     static function findUserId($login, $psw)
     {
-        $userId = null;
-        $params =['#login' => $login];
-        $query = "SELECT * FROM users WHERE login LIKE '#login'";
-        $res = DbMng::query($query, $params);
-        if ($res === false) {
-            $err = 'Error while authenticate: '. DbMng::error();
-            throw new \Exception($err);
+        /** @var \Fintest\Model\UserModel $userModel */
+        $userModel = ModelMng::getModel('UserModel');
+        $userInfo = $userModel->getUserByLogin($login);
+        $stdErr = 'Login or password incorrect!';
+        if (empty($userInfo)) {
+            throw new \Exception($stdErr);
         }
 
-        try {
-            $numRows = \mysqli_num_rows($res);
-            if ($numRows > 1) {
-                $err = 'More then 1 results while authenticate';
-                throw new \Exception($err);
-            }
-
-            $stdErr = 'Login or password incorrect!';
-            if ($numRows <= 0) {
-                throw new \Exception($stdErr);
-            }
-
-            $row = \mysqli_fetch_array($res);
-            $userId = $row['id'];
-            $userPsw = $row['psw'];
-
-            if (password_verify($psw, $userPsw)) {
-                throw new \Exception($stdErr.'(2)');
-            }
-
-            $_SESSION['cur_user_id'] = $userId;
-        } finally  {
-            \mysqli_free_result($res);
+        $userPsw = $userInfo['psw'];
+        if (password_verify($psw, $userPsw)) {
+            throw new \Exception($stdErr.'(2)');
         }
-
-        return $userId;
+        return $userInfo['id'];
     }
 
 
